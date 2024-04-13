@@ -99,7 +99,16 @@ const kittyPrompts = {
       /* CODE GOES HERE */
 
       // Annotation:
-      // Write your annotation here as a comment
+      // use clubs array of objects as a parameter
+      // access each object in array
+      // each object has members array
+      // access each member and make a key of it for a new object (ONLY IF UNIQUE)
+      // make the value of that key an empty array
+      // back to access each object in array
+      // if members of that object contains key, push club value to our empty array
+      // return object
+      // get back to all of this after object literals lesson
+
     }
   };
 
