@@ -526,8 +526,8 @@ const weatherPrompts = {
     // }
 
     /* CODE GOES HERE */
-   const sortedHumidity = weather.sort((a,b) => b.humidity - a.humidity)
-   return sortedHumidity[0]
+    const sortedHumidity = weather.sort((a, b) => b.humidity - a.humidity)
+    return sortedHumidity[0]
 
     // Annotation:
     // Write your annotation here as a comment
@@ -554,6 +554,22 @@ const nationalParksPrompts = {
     //}
 
     /* CODE GOES HERE */
+    const list = nationalParks.reduce((acc, curr) => {
+      if (!acc.parksToVisit) {
+        acc.parksToVisit = [];
+      }
+      if (!acc.parksVisited) {
+        acc.parksVisited = [];
+      }
+      if (curr.visited) {
+        acc.parksVisited.push(curr.name)
+      } else {
+        acc.parksToVisit.push(curr.name)
+      }
+      return acc
+    }, {})
+    return list
+
 
     // Annotation:
     // Write your annotation here as a comment
@@ -570,6 +586,15 @@ const nationalParksPrompts = {
 
 
     /* CODE GOES HERE */
+
+    const parks = nationalParks.reduce((acc, curr) => {
+      const newObject = {
+        [curr.location]: curr.name
+      }
+      acc.push(newObject)
+      return acc
+    }, [])
+    return parks
 
     // Annotation:
     // Write your annotation here as a comment
@@ -591,8 +616,18 @@ const nationalParksPrompts = {
     //   'backpacking',
     //   'rock climbing' ]
 
-    /* CODE GOES HERE */
 
+    /* CODE GOES HERE */
+    const activities = [];
+
+    nationalParks.forEach(park => {
+      park.activities.forEach(activity => {
+        if (!activities.includes(activity)) {
+          activities.push(activity)
+        }
+      })
+    })
+    return activities
     // Annotation:
     // Write your annotation here as a comment
   }
