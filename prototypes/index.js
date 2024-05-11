@@ -458,12 +458,12 @@ const bookPrompts = {
 
     // by filter and map:
     const booksByYear = books.filter(book => book.published > year).
-    map(book => {
-      return {
-        title: book.title,
-        year: book.published
-      }
-    });
+      map(book => {
+        return {
+          title: book.title,
+          year: book.published
+        }
+      });
     return booksByYear
 
     // Annotation:
@@ -487,6 +487,12 @@ const weatherPrompts = {
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
     /* CODE GOES HERE */
+    const averageTemps = weather.reduce((acc, curr) => {
+      const average = (curr.temperature.high + curr.temperature.low) / 2
+      acc.push(average)
+      return acc
+    }, [])
+    return averageTemps
 
     // Annotation:
     // Write your annotation here as a comment
@@ -500,6 +506,11 @@ const weatherPrompts = {
     // 'Raleigh, North Carolina is mostly sunny.' ]
 
     /* CODE GOES HERE */
+    const sunnySpots = weather.filter(location => {
+      if (location.type === "sunny" || location.type === "mostly sunny")
+        return location
+    }).map(location => `${location.location} is ${location.type}.`);
+    return sunnySpots
 
     // Annotation:
     // Write your annotation here as a comment
@@ -515,6 +526,8 @@ const weatherPrompts = {
     // }
 
     /* CODE GOES HERE */
+   const sortedHumidity = weather.sort((a,b) => b.humidity - a.humidity)
+   return sortedHumidity[0]
 
     // Annotation:
     // Write your annotation here as a comment
