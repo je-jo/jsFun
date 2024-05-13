@@ -653,6 +653,11 @@ const breweryPrompts = {
     // 40
 
     /* CODE GOES HERE */
+    const allBeers = breweries.reduce((acc, curr) => {
+      acc += curr.beers.length
+      return acc
+    }, 0)
+    return allBeers;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -668,6 +673,15 @@ const breweryPrompts = {
     // ]
 
     /* CODE GOES HERE */
+    const breweryBeers = breweries.reduce((acc, curr) => {
+      const brewery = {
+        name: curr.name,
+        beerCount: curr.beers.length
+      }
+      acc.push(brewery)
+      return acc
+    }, [])
+    return breweryBeers
 
     // Annotation:
     // Write your annotation here as a comment
@@ -677,6 +691,8 @@ const breweryPrompts = {
     // Return a number that is the count of beers that the specified
     // brewery has e.g.
     // given 'Ratio Beerworks', return 5
+    const brewery = breweries.find(brewery => brewery.name === breweryName);
+    return brewery.beers.length
 
 
     /* CODE GOES HERE */
@@ -691,6 +707,11 @@ const breweryPrompts = {
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
     /* CODE GOES HERE */
+    const allBeers = breweries.reduce((acc, curr) => {
+      return acc.concat(curr.beers)
+    }, [])
+    const sorted = allBeers.sort((a, b) => b.abv - a.abv)
+    return sorted[0]
 
     // Annotation:
     // Write your annotation here as a comment
