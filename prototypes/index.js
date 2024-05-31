@@ -729,12 +729,18 @@ const breweryPrompts = {
 
 const boardGamePrompts = {
   listGames(type) {
+
+
     // Return an array of just the names of the games within a specified type. 
     // e.g. given an argument of "strategy", return
     // ["Chess", "Catan", "Checkers", "Pandemic", "Battle Ship", "Azul", "Ticket to Ride"]
 
     /* CODE GOES HERE */
-
+    const games = [];
+    boardGames[type].forEach(game => {
+      games.push(game.name)
+    })
+    return games
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -746,7 +752,12 @@ const boardGamePrompts = {
     // ["Candy Land", "Connect Four", "Operation", "Trouble"]
 
     /* CODE GOES HERE */
-
+    const games = [];
+    boardGames[type].forEach(game => {
+      games.push(game.name)
+    })
+    const sortedGames = games.sort()
+    return sortedGames
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -757,7 +768,12 @@ const boardGamePrompts = {
     // { name: 'Codenames', rating: 7.4, maxPlayers: 8 },
 
     /* CODE GOES HERE */
-
+    const games = [];
+    boardGames[type].forEach(game => {
+      games.push(game)
+    })
+    games.sort((a, b) => b.rating - a.rating)
+    return games[0]
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -768,7 +784,16 @@ const boardGamePrompts = {
     // note: do not worry about rounding your result.
 
     /* CODE GOES HERE */
-
+    const games = [];
+    boardGames[type].forEach(game => {
+      games.push(game)
+    })
+    const totalScore = games.reduce((acc, curr) => {
+      acc += curr.rating
+      return acc
+    }, 0);
+    const averageScore = totalScore / games.length
+    return averageScore
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -780,7 +805,17 @@ const boardGamePrompts = {
     // note: do not worry about rounding your result.
 
     /* CODE GOES HERE */
-
+    const games = [];
+    boardGames[type].forEach(game => {
+      games.push(game)
+    })
+    const gamesByPlayers = games.filter(game => game.maxPlayers === maximumPlayers);
+    const totalScore = gamesByPlayers.reduce((acc, curr) => {
+      acc += curr.rating
+      return acc
+    }, 0);
+    const averageScore = totalScore / gamesByPlayers.length
+    return averageScore
     // Annotation:
     // Write your annotation here as a comment
   }
