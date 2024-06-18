@@ -997,15 +997,20 @@ const bossPrompts = {
     /* CODE GOES HERE */
 
   const bossesNames = Object.keys(bosses)
-  console.log(bossesNames)
   const result = bossesNames.map(boss => {
+    let bossName = boss[0].toUpperCase() + boss.slice(1)
     let sidekickLoyalty = 0;
+    sidekicks.forEach(sidekick => {
+      if (sidekick.boss === bossName) {
+        sidekickLoyalty += sidekick.loyaltyToBoss
+      }
+    })
     return {
-      bossName: boss[0].toUpperCase() + boss.slice(1),
+      bossName: bossName,
       sidekickLoyalty: sidekickLoyalty
     }
   })
-  console.log(result)
+  return result
 
     // Annotation:
     // Write your annotation here as a comment
