@@ -862,6 +862,14 @@ const turingPrompts = {
     // ]
 
     /* CODE GOES HERE */
+    const results = instructors.map(instructor => {
+      instructor.cohortDetails = cohorts.find(cohort => cohort.module === instructor.module);
+      return {
+        name: instructor.name,
+        studentCount: instructor.cohortDetails.studentCount
+      }
+    })
+    return results
 
     // Annotation:
     // Write your annotation here as a comment
@@ -875,9 +883,25 @@ const turingPrompts = {
     // }
 
     /* CODE GOES HERE */
+    const teachersPerModule = cohorts.map(cohort => {
+      cohort.numOfTeachers = 0;
+      instructors.forEach(instructor => {
+        if (cohort.module === instructor.module) {
+          cohort.numOfTeachers += 1
+        }
+      })
+      return cohort
+    })
+    const result = teachersPerModule.reduce((acc, curr) => {
+      acc["cohort" + curr.cohort] = curr.studentCount / curr.numOfTeachers
+      return acc
+    }, {})
+    return result
 
     // Annotation:
     // Write your annotation here as a comment
+
+    // get number of teachers in module
   },
 
   modulesPerTeacher() {
@@ -896,6 +920,19 @@ const turingPrompts = {
     //   }
 
     /* CODE GOES HERE */
+    const teacherModules = instructors.reduce((acc, curr) => {
+      acc[curr.name] = [];
+      curr.teaches.forEach(subject => {
+        cohorts.forEach(cohort => {
+          if ((cohort.curriculum.includes(subject)) && !acc[curr.name].includes(cohort.module)) {
+            acc[curr.name].push(cohort.module)
+          }
+        })
+      })
+      acc[curr.name].sort()
+      return acc
+    }, {})
+    return teacherModules
 
     // Annotation:
     // Write your annotation here as a comment
@@ -912,6 +949,18 @@ const turingPrompts = {
     // }
 
     /* CODE GOES HERE */
+    const subjects = cohorts.reduce((acc, curr) => {
+      curr.curriculum.forEach(subject => {
+        acc[subject] = [];
+        instructors.forEach(instructor => {
+          if (instructor.teaches.includes(subject)) {
+            acc[subject].push(instructor.name)
+          }
+        })
+      })
+      return acc
+    }, {})
+    return subjects
 
     // Annotation:
     // Write your annotation here as a comment
@@ -946,6 +995,17 @@ const bossPrompts = {
     // ]
 
     /* CODE GOES HERE */
+
+  const bossesNames = Object.keys(bosses)
+  console.log(bossesNames)
+  const result = bossesNames.map(boss => {
+    let sidekickLoyalty = 0;
+    return {
+      bossName: boss[0].toUpperCase() + boss.slice(1),
+      sidekickLoyalty: sidekickLoyalty
+    }
+  })
+  console.log(result)
 
     // Annotation:
     // Write your annotation here as a comment
