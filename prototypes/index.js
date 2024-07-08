@@ -1066,6 +1066,21 @@ const astronomyPrompts = {
     // ]
 
     /* CODE GOES HERE */
+const constellationsArray = Object.values(constellations);
+const allStarsInConstellations = [];
+constellationsArray.forEach(constellation => {
+  constellation.starNames.forEach(star => {
+    if (!allStarsInConstellations.includes(star)) {
+      allStarsInConstellations.push(star)
+    }
+  })
+});
+const result = stars.filter(star => {
+  if (allStarsInConstellations.includes(star.name)) {
+    return star
+  }
+})
+return result;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1083,6 +1098,15 @@ const astronomyPrompts = {
     // }
 
     /* CODE GOES HERE */
+
+    const result = stars.reduce((acc, curr) => {
+      if (!acc[curr.color]) {
+        acc[curr.color] = [];
+      }
+      acc[curr.color].push(curr)
+      return acc
+    }, {})
+    return result;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1106,8 +1130,20 @@ const astronomyPrompts = {
 
     /* CODE GOES HERE */
 
+    const result = stars.sort((a,b) => a.visualMagnitude - b.visualMagnitude)
+    .map(star => star.constellation)
+    const cleanedUpResult = [];
+    result.forEach(star => {
+      if (star) {
+        cleanedUpResult.push(star)
+      }
+    })
+    return cleanedUpResult;
+
     // Annotation:
     // Write your annotation here as a comment
+
+    // Alpha Centauri has no constellation name
   }
 };
 
