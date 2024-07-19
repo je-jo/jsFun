@@ -996,21 +996,21 @@ const bossPrompts = {
 
     /* CODE GOES HERE */
 
-  const bossesNames = Object.keys(bosses)
-  const result = bossesNames.map(boss => {
-    let bossName = boss[0].toUpperCase() + boss.slice(1)
-    let sidekickLoyalty = 0;
-    sidekicks.forEach(sidekick => {
-      if (sidekick.boss === bossName) {
-        sidekickLoyalty += sidekick.loyaltyToBoss
+    const bossesNames = Object.keys(bosses)
+    const result = bossesNames.map(boss => {
+      let bossName = boss[0].toUpperCase() + boss.slice(1)
+      let sidekickLoyalty = 0;
+      sidekicks.forEach(sidekick => {
+        if (sidekick.boss === bossName) {
+          sidekickLoyalty += sidekick.loyaltyToBoss
+        }
+      })
+      return {
+        bossName: bossName,
+        sidekickLoyalty: sidekickLoyalty
       }
     })
-    return {
-      bossName: bossName,
-      sidekickLoyalty: sidekickLoyalty
-    }
-  })
-  return result
+    return result
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1066,21 +1066,21 @@ const astronomyPrompts = {
     // ]
 
     /* CODE GOES HERE */
-const constellationsArray = Object.values(constellations);
-const allStarsInConstellations = [];
-constellationsArray.forEach(constellation => {
-  constellation.starNames.forEach(star => {
-    if (!allStarsInConstellations.includes(star)) {
-      allStarsInConstellations.push(star)
-    }
-  })
-});
-const result = stars.filter(star => {
-  if (allStarsInConstellations.includes(star.name)) {
-    return star
-  }
-})
-return result;
+    const constellationsArray = Object.values(constellations);
+    const allStarsInConstellations = [];
+    constellationsArray.forEach(constellation => {
+      constellation.starNames.forEach(star => {
+        if (!allStarsInConstellations.includes(star)) {
+          allStarsInConstellations.push(star)
+        }
+      })
+    });
+    const result = stars.filter(star => {
+      if (allStarsInConstellations.includes(star.name)) {
+        return star
+      }
+    })
+    return result;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1130,8 +1130,8 @@ return result;
 
     /* CODE GOES HERE */
 
-    const result = stars.sort((a,b) => a.visualMagnitude - b.visualMagnitude)
-    .map(star => star.constellation)
+    const result = stars.sort((a, b) => a.visualMagnitude - b.visualMagnitude)
+      .map(star => star.constellation)
     const cleanedUpResult = [];
     result.forEach(star => {
       if (star) {
@@ -1172,6 +1172,18 @@ const ultimaPrompts = {
 
     /* CODE GOES HERE */
 
+    const damageResult = characters.reduce((acc, curr) => {
+      curr.weapons.forEach(weapon => {
+        acc += weapons[weapon].damage
+      })
+      return acc
+    }, 0)
+    return damageResult
+
+
+
+
+
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -1182,6 +1194,22 @@ const ultimaPrompts = {
     // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
     /* CODE GOES HERE */
+
+    const result = characters.map(character => {
+      let char = {
+        [character.name]: {
+          damage: 0,
+          range: 0
+        }
+      }
+      character.weapons.forEach(weapon => {
+        char[character.name].damage += weapons[weapon].damage
+        char[character.name].range += weapons[weapon].range
+      })
+      return char;
+
+    })
+    return result
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1219,8 +1247,26 @@ const dinosaurPrompts = {
 
     /* CODE GOES HERE */
 
+    const result = movies.reduce((acc, curr) => {
+      acc[curr.title] = 0;
+      curr.dinos.forEach(dino => {
+        if (dinosaurs[dino].isAwesome) {
+          acc[curr.title]++;
+        }
+      })
+      return acc
+    }, {})
+    return result;
+
     // Annotation:
     // Write your annotation here as a comment
+    /* 
+    iterate over array of movies
+    from each movie get a title and array of dinos
+    for each dino add 1 if it's awesome
+    best with reduce because need to return object
+    
+    */
   },
 
   averageAgePerMovie() {
@@ -1251,8 +1297,40 @@ const dinosaurPrompts = {
 
     /* CODE GOES HERE */
 
+    const getAverageOfActors = (movie) => {
+      let averageAge = 0;
+      let totalAge = 0;
+      movie.cast.forEach(actor => {
+        const actorAge = movie.yearReleased - humans[actor].yearBorn
+        totalAge += actorAge
+      })
+      averageAge = Math.floor(totalAge / movie.cast.length)
+
+      return averageAge
+    }
+
+
+    const result = movies.reduce((acc, curr) => {
+      if (!acc[curr.director]) {
+        acc[curr.director] = {};
+      }
+      if (!acc[curr.director][curr.title])
+        acc[curr.director][curr.title] = getAverageOfActors(curr);
+      return acc
+    }, {})
+    return result;
+
     // Annotation:
     // Write your annotation here as a comment
+
+    /*
+    iterate over array of movies
+    get directors name
+    make nested object and add movie name if it has that directors name
+    now for each movie get cast array
+    iterate over humans and get age and average age of all actors
+    
+    */
   },
 
   uncastActors() {

@@ -146,7 +146,12 @@ const scope = {
 
     // Log D: greeting
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      { "A": "hi" },
+      { "B": "welcome" },
+      { "C": "welcome" },
+      { "D": "howdy" },
+    ];
     return result;
 
     // Annotation:
@@ -178,11 +183,16 @@ const scope = {
 
     // Log D: name
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      { "C": "Brittany" },
+      { "A": "Nathaniel" },
+      { "B": "Nathaniel" },
+      { "D": "Brittany" },
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Order?
   },
 
   exerciseF() {
@@ -213,7 +223,13 @@ const scope = {
 
     // Log E: dog
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      { "A": "Spot" },
+      { "B": "Spot" },
+      { "C": "Biscuit" },
+      { "D": "Biscuit" },
+      { "E": "Biscuit"}
+    ];
     return result;
 
     // Annotation:
