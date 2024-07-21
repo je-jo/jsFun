@@ -1361,6 +1361,33 @@ const dinosaurPrompts = {
 
     /* CODE GOES HERE */
 
+    const castActors = movies.reduce((acc, curr) => {
+      curr.cast.forEach(actor => {
+        if (!acc.includes(actor)) {
+          acc.push(actor)
+        }
+      })
+      return acc
+    }, []);
+    const allActors = Object.keys(humans);
+    const uncastActors = allActors.filter(actor => !castActors.includes(actor))
+    const result = uncastActors.map(actor => {
+      return {
+        name: actor,
+        nationality: humans[actor].nationality,
+        imdbStarMeterRating: humans[actor].imdbStarMeterRating
+      }
+    })
+    const sortedResult = result.sort((a, b) => {
+      if (a.nationality < b.nationality) {
+        return -1
+      } else if (a.nationality > b.nationality) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+    return sortedResult
     // Annotation:
     // Write your annotation here as a comment
   },
