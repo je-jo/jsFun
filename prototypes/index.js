@@ -1335,7 +1335,8 @@ const dinosaurPrompts = {
 
   uncastActors() {
     /*
-    Return an array of objects that contain the names of humans who have not been cast in a Jurassic Park movie (yet), their nationality, and their imdbStarMeterRating. The object in the array should be sorted alphabetically by nationality.
+    Return an array of objects that contain the names of humans 
+    who have not been cast in a Jurassic Park movie (yet), their nationality, and their imdbStarMeterRating. The object in the array should be sorted alphabetically by nationality.
  
     e.g.
       [{
@@ -1394,7 +1395,10 @@ const dinosaurPrompts = {
 
   actorsAgesInMovies() {
     /*
-    Return an array of objects for each human and the age(s) they were in the movie(s) they were cast in, as an array of age(s). Only include humans who were cast in at least one movie.
+    Return an array of objects for each human and the age(s) 
+    they were in the movie(s) they were cast in, 
+    as an array of age(s). Only include humans who were cast 
+    in at least one movie.
  
     e.g.
     [ { name: 'Sam Neill', ages: [ 46, 54 ] },
@@ -1410,8 +1414,32 @@ const dinosaurPrompts = {
 
     /* CODE GOES HERE */
 
+const allAges = [];
+const names = Object.keys(humans);
+names.forEach(name => {
+  const entry = {
+    name: name,
+    ages: []
+  };
+  movies.forEach(movie => {
+    if (movie.cast.includes(name)) {
+      let age = movie.yearReleased - humans[name].yearBorn;
+      entry.ages.push(age)
+    }
+  })
+  allAges.push(entry);
+});
+const result = allAges.filter(entry => entry.ages.length >= 2);
+return result;
+
     // Annotation:
     // Write your annotation here as a comment
+
+// try without Object.keys
+
+    /*
+
+    */
   }
 };
 
